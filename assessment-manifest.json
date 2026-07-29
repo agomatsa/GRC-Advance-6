@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "project_id": "SOC-A1",
+  "variant": "INSERT-YOUR-ASSIGNED-VARIANT",
+  "candidate_binding": "from-assigned-participant-pack",
+  "assigned_pack": {
+    "file_name": "INSERT-ASSIGNED-PACK-FILENAME",
+    "sha256": "INSERT-ASSIGNED-PACK-SHA256",
+    "manifest_signature": "INSERT-STAFF-ISSUED-SIGNATURE",
+    "verified_before_use": false
+  },
+  "commit": "INSERT-40-CHARACTER-GIT-COMMIT-AFTER-YOU-COMMIT-THIS-REPO",
+  "supported_environment": {
+    "os": "INSERT-YOUR-DEFENSE-ENVIRONMENT-OS",
+    "cpu": "INSERT-YOUR-CPU",
+    "memory_gb": 0,
+    "tool_versions": {
+      "node": "22.22.2",
+      "npm": "10.9.7"
+    }
+  },
+  "commands": {
+    "provision": "make provision",
+    "build": "make build",
+    "test": "make test",
+    "clean": "make clean"
+  },
+  "results": {
+    "public_tests": { "passed": 32, "failed": 0, "report": "run `make test` for a fresh node:test report" },
+    "runtime_seconds": 0,
+    "peak_memory_mb": 0,
+    "output_hashes": {}
+  },
+  "inputs": [
+    "data/vendor-claim.json",
+    "data/assurance-and-contract.json",
+    "data/vendor-telemetry.json",
+    "fixtures/public-fixtures.json"
+  ],
+  "outputs": [
+    "out/findings.json",
+    "docs/decision-memo.md",
+    "docs/contradiction-matrix.csv",
+    "docs/evidence-index.csv"
+  ],
+  "manual_preconditions": [],
+  "known_limitations": [
+    "assigned_pack, commit, supported_environment, and output_hashes require candidate-specific values not available in this build environment and must be completed before submission."
+  ]
+}

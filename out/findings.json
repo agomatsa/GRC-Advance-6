@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-07-28T19:02:41.378Z",
+  "findings": [
+    {
+      "check_id": "tls.minimum",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "tls.observations[endpoint=api.peopleflow.invalid]@2026-07-13T08:41:00Z"
+    },
+    {
+      "check_id": "tls.minimum",
+      "status": "fail",
+      "code": "TLS_BELOW_MINIMUM",
+      "artefact": "vendor-telemetry.json",
+      "locator": "tls.observations[endpoint=files.peopleflow.invalid]@2026-07-13T08:42:00Z"
+    },
+    {
+      "check_id": "access.duplicate",
+      "status": "malformed",
+      "code": "DUPLICATE_EVENT_ID",
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[*].event_id"
+    },
+    {
+      "check_id": "access.mfa",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[0].event_id=PA-001"
+    },
+    {
+      "check_id": "access.hash_chain",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[0].event_id=PA-001"
+    },
+    {
+      "check_id": "access.mfa",
+      "status": "fail",
+      "code": "PRIVILEGED_MFA_MISSING",
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[1].event_id=PA-002"
+    },
+    {
+      "check_id": "access.hash_chain",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[1].event_id=PA-002"
+    },
+    {
+      "check_id": "access.mfa",
+      "status": "fail",
+      "code": "PRIVILEGED_MFA_MISSING",
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[2].event_id=PA-002"
+    },
+    {
+      "check_id": "access.hash_chain",
+      "status": "fail",
+      "code": "HASH_CHAIN_BROKEN",
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[2].event_id=PA-002"
+    },
+    {
+      "check_id": "access.mfa",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[3].event_id=PA-003"
+    },
+    {
+      "check_id": "access.hash_chain",
+      "status": "fail",
+      "code": "HASH_CHAIN_BROKEN",
+      "artefact": "vendor-telemetry.json",
+      "locator": "privileged_access[3].event_id=PA-003"
+    },
+    {
+      "check_id": "deletion.order",
+      "status": "fail",
+      "code": "SUCCESS_BEFORE_COMPLETION",
+      "artefact": "vendor-telemetry.json",
+      "locator": "deletion_jobs[0].job_id=DEL-710"
+    },
+    {
+      "check_id": "deletion.backup",
+      "status": "insufficient",
+      "code": "BACKUP_PURGE_UNPROVEN",
+      "artefact": "vendor-telemetry.json",
+      "locator": "deletion_jobs[0].job_id=DEL-710"
+    },
+    {
+      "check_id": "deletion.order",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "deletion_jobs[1].job_id=DEL-711"
+    },
+    {
+      "check_id": "deletion.backup",
+      "status": "pass",
+      "code": null,
+      "artefact": "vendor-telemetry.json",
+      "locator": "deletion_jobs[1].job_id=DEL-711"
+    },
+    {
+      "check_id": "location.claim",
+      "status": "fail",
+      "code": "REGION_CLAIM_CONTRADICTED",
+      "artefact": "vendor-telemetry.json",
+      "locator": "subprocessors[id=SP-02].region"
+    },
+    {
+      "check_id": "location.claim",
+      "status": "fail",
+      "code": "REGION_CLAIM_CONTRADICTED",
+      "artefact": "vendor-telemetry.json",
+      "locator": "subprocessors[id=SP-03].region"
+    },
+    {
+      "check_id": "notification.clock",
+      "status": "fail",
+      "code": "CUSTOMER_CLOCK_DELAYED",
+      "artefact": "assurance-and-contract.json",
+      "locator": "contract.incident_notice"
+    },
+    {
+      "check_id": "subprocessor.assurance",
+      "status": "pass",
+      "code": null,
+      "artefact": "assurance-and-contract.json",
+      "locator": "subprocessors[id=AWS].assurance"
+    },
+    {
+      "check_id": "subprocessor.assurance",
+      "status": "pass",
+      "code": null,
+      "artefact": "assurance-and-contract.json",
+      "locator": "subprocessors[id=HELP-SPHERE].assurance"
+    },
+    {
+      "check_id": "subprocessor.assurance",
+      "status": "pass",
+      "code": null,
+      "artefact": "assurance-and-contract.json",
+      "locator": "subprocessors[id=MAIL-RELAY].assurance"
+    }
+  ],
+  "graph_findings": [
+    {
+      "node": "SP-03",
+      "status": "malformed",
+      "code": "PARENT_REFERENCE_INCONSISTENT_IDENTIFIER",
+      "detail": "SP-03 references parent \"QueueNorth\" by name, not by id (resolves to SP-01). Export uses inconsistent identifier scheme."
+    },
+    {
+      "node": "SP-01",
+      "status": "insufficient",
+      "code": "SUBPROCESSOR_NOT_IN_CONTRACT_LIST",
+      "detail": "Telemetry node SP-01 (QueueNorth, region us-east-1) has no matching entry in the contractual subprocessor list."
+    },
+    {
+      "node": "SP-03",
+      "status": "insufficient",
+      "code": "SUBPROCESSOR_NOT_IN_CONTRACT_LIST",
+      "detail": "Telemetry node SP-03 (ArchiveLane, region eu-west-1) has no matching entry in the contractual subprocessor list."
+    }
+  ],
+  "summary": {
+    "pass": 10,
+    "fail": 9,
+    "insufficient": 3,
+    "malformed": 2
+  }
+}

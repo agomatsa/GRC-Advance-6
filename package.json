@@ -1,0 +1,16 @@
+{
+  "name": "grc-a2-vendor-verification",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GRC Advanced 2 — vendor risk verification pipeline (PeopleFlow / CloudScale Dynamics)",
+  "main": "src/pipeline.js",
+  "scripts": {
+    "build": "node -e \"require('./src/checks'); require('./src/pipeline'); console.log('build ok: modules load cleanly')\"",
+    "test": "node --test",
+    "run": "node src/pipeline.js",
+    "clean": "rm -rf out node_modules/.cache"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
