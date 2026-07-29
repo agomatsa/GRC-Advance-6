@@ -1,64 +1,94 @@
-# GRC Advanced 2 — Vendor Risk Verification Pipeline (PeopleFlow / CloudScale Dynamics)
+GRC Advanced 2 — Vendor Risk Verification Pipeline
+PeopleFlow / CloudScale Dynamics | System Documentation & Submission README
 
-## Tool / OS versions used in this build
-- Node.js: `v22.22.2` (built/tested here; `engines.node >= 18` required)
-- npm: `10.9.7`
-- OS: Ubuntu (container build environment) — **candidate must confirm and record their own defense-environment
-  OS/CPU/memory in `assessment-manifest.json` before submission; do not copy this line verbatim.**
+**1. Environment & System Specification**
 
-## Assigned variant / evidence marker
-- Intern code: `UBI-2026-0038`
-- Evidence marker: `UBI-A6-28E98839836C`
-- Variant: **[candidate to insert — not present in the supplied materials]**
+Candidate Name Ebenezer Elikem Amankwah Ofori Dzam
+Intern Code UBI-2026-0038
+Evidence Marker UBI-A6-28E98839836C
+Operating System Kali Linux 2026.x (x86_64)
+Runtime &Version Node.js v24.18.0 (engines.node ;= 18 supported)
+Package Manager npm 10.9.2
 
-## Exact reproduction order
-```bash
-git clone <your-repo-url> && cd <repo>
-make provision   # prints Node version; no external deps to install
-make build       # sanity-loads src/checks.js and src/pipeline.js
-make test        # runs 20 public fixtures + 12 pipeline tests (32 total) via node --test
-make run         # runs the pipeline against data/*.json, writes out/findings.json
-```
-Then read `docs/decision-memo.md`, `docs/contradiction-matrix.csv`, and `docs/evidence-index.csv` for the
-decision, contradiction analysis, and evidence trail respectively.
+3. Directory Layout
 
-## Directory layout
-```
-data/                 raw exports (read-only inputs; do not edit)
-src/checks.js          pure check functions, one per check_id
-src/graph.js            subprocessor graph builder + orphan/cycle/assurance reconciliation
-src/pipeline.js         orchestrator: ingests data/, runs checks, writes out/findings.json
-src/schemas.js          input/output JSON Schemas
-fixtures/public-fixtures.json   the 20 supplied public fixtures (verbatim)
-test/fixtures.test.js   runs every public fixture against src/checks.js
-test/pipeline.test.js   positive, negative, malformed-input, and clean-state tests
-docs/decision-memo.md          the decision + conditions + redlines summary
-docs/contradiction-matrix.csv  CX-01..CX-08 contradiction matrix
-docs/evidence-index.csv        EV-01..EV-09 evidence index
-docs/redlines.md               R1..R6 contract redlines
-continuity-record.md           Stage 5→7 continuity per the portfolio contract
-```
+data/ Raw vendor exports (Read-only inputs, locked via chmod 444)
+├── assurance-and-contract.json
+├── vendor-claim.json
+└── vendor-telemetry.json
+src/ Core pipeline logic
+├── checks.js Pure check functions (one per check_id)
+├── graph.js Subprocessor graph builder &amp; reconciliation logic
+├── pipeline.js Orchestrator: ingests data/, executes checks, outputs findings
+└── schemas.js JSON schema definitions for inputs and outputs
+test/ Test suite
+├── fixtures.test.js Executes test fixtures against pure checks
+└── pipeline.test.js End-to-end positive, negative, and edge-case pipeline tests
+fixtures/ Test fixtures
+└── public-fixtures.json Supplied public verification fixtures
+docs/ GRC documentation &amp; evidence matrix
+├── decision-memo.md Final risk decision, conditions, and executive summary
+├── contradiction-matrix.csv CX-01..CX-08 contradiction matrix
+├── evidence-index.csv EV-01..EV-09 evidence index with verified SHA-256 digests
+└── redlines.md R1..R6 contractual redlines
+tools/ Automated verification, hashing, and structural audit scripts
+├── update-hashes.js Computes and injects SHA-256 digests into CSV indexes
+├── verify-csv.py Validates column layout uniformity across CSV tables
+└── lock-data.sh Applies read-only permissions to raw evidence files
+out/ Pipeline outputs
+└── findings.json Generated assessment output report
+assessment-manifest.json Submission manifest and repository commit tracking
+continuity-record.md Stage 5→7 continuity tracking log
+Makefile Pipeline automation interface
 
-## Adding a hidden/new fixture without editing core logic
-Append an entry to `fixtures/public-fixtures.json` (or point `test/fixtures.test.js` at a second file) with
-the same `{case_id, check_id, expected_code, expected_status, input, record_id}` shape. `test/fixtures.test.js`
-iterates the file generically — no change to `src/checks.js` is needed unless the new fixture introduces a
-genuinely new `check_id`, in which case `runCheck` will correctly return `UNKNOWN_CHECK_ID` / `malformed`
-rather than silently passing it.
+README.md Project documentation
 
-## Known limitations / candidate action items before submission
-- `manifest.sha256`, `assessment-manifest.json`'s `assigned_pack`/`commit` fields, and
-  `integrity-attestation.md`'s signature blocks require information only you have (your assigned pack hash,
-  your frozen commit, your signed name/date). Templates are provided; **do not submit with placeholders still
-  in them.**
-- `docs/evidence-index.csv`'s `SHA256` column is marked `PENDING-HASH` — run the hash command below once your
-  final `data/` files are frozen and fill in real hashes.
-- This pipeline is dependency-free (Node core + `node:test` only), so `make provision` has nothing to install.
-  If your assigned pack requires additional tooling, add it to `provision` and pin versions.
+**3. Quick Start & Reproduction Order**
+This project is entirely dependency-free (built strictly using Node.js core modules and standard system
+utilities). Execute the following commands from the repository root:
+# 1. Provision and verify environment requirements
+make provision
+# 2. Perform build sanity checks on pipeline modules
+make build
+# 3. Execute test suite (runs 20 public fixtures + 12 pipeline tests via node --test)
+make test
+# 4. Run the verification pipeline against data/*.json and generate out/findings.json
+make run
+After running the pipeline, review the risk analysis artifacts in docs/:
+ docs/decision-memo.md — Executive decision, risk conditions, and redlines.
+ docs/contradiction-matrix.csv — Contradiction mapping (CX-01 to CX-08).
+ docs/evidence-index.csv — Full evidence index (EV-01 to EV-09) with SHA-256 hashes.
 
-## Hash command (Linux/macOS)
-```bash
+4. Tools, Automation & Integrity Verification
+To run repository maintenance scripts directly:
+
+# Calculate and populate real SHA-256 hashes for raw data files into evidence-index.csv
+node tools/update-hashes.js
+# Verify structural uniformity across CSV indexes
+python3 tools/verify-csv.py
+# Enforce read-only file permissions on raw data inputs
+./tools/lock-data.sh
+Manifest Hash Generation
+To update or re-verify manifest.sha256 across the frozen repository state:
 find . -type f ! -name manifest.sha256 -print0 \
-  | sort -z \
-  | xargs -0 shasum -a 256 > manifest.sha256
-```
+| sort -z \
+| xargs -0 shasum -a 256 > manifest.sha256
+
+
+**5. Assistance & Authorship Attestation**
+
+**Assistance and tools used:**
+With Assistance from Osei Akoto Okyere assisted with scaffolding project directory structures, writing
+automation scripts (including SHA-256 evidence hashing utilities and CSV column parsing), debugging Git
+authentication/configuration issues, and formatting markdown documentation. The development and
+runtime environment relied on Kali Linux (Terminal/Bash), Node.js (v24.x) with the native Node test runner
+(node --test), Git and GitHub for version control and remote synchronization, and core system utilities
+including sha256sum, jq, python3, find, chmod, and grep. All raw evidence files in data/ have been frozen
+(read-only), and all SHA-256 digests in docs/evidence-index.csv have been fully calculated and verified
+with no PENDING-HASH placeholders remaining.
+
+Candidate Declaration:
+Per the assessment&#39;s authorship and integrity clauses, Ebenezer Elikem Amankwah Ofori Dzam remains
+fully responsible for every claim, test, fixture, and documentation file included in this submission; all
+generated scripts, hashes, and code logic have been locally executed, verified, and can be fully
+demonstrated and explained during defense.
