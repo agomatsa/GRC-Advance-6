@@ -18,7 +18,7 @@ data/ Raw vendor exports (Read-only inputs, locked via chmod 444)
 └── vendor-telemetry.json
 src/ Core pipeline logic
 ├── checks.js Pure check functions (one per check_id)
-├── graph.js Subprocessor graph builder &amp; reconciliation logic
+├── graph.js Subprocessor graph builder & reconciliation logic
 ├── pipeline.js Orchestrator: ingests data/, executes checks, outputs findings
 └── schemas.js JSON schema definitions for inputs and outputs
 test/ Test suite
@@ -26,7 +26,7 @@ test/ Test suite
 └── pipeline.test.js End-to-end positive, negative, and edge-case pipeline tests
 fixtures/ Test fixtures
 └── public-fixtures.json Supplied public verification fixtures
-docs/ GRC documentation &amp; evidence matrix
+docs/ GRC documentation & evidence matrix
 ├── decision-memo.md Final risk decision, conditions, and executive summary
 ├── contradiction-matrix.csv CX-01..CX-08 contradiction matrix
 ├── evidence-index.csv EV-01..EV-09 evidence index with verified SHA-256 digests
@@ -78,17 +78,8 @@ find . -type f ! -name manifest.sha256 -print0 \
 **5. Assistance & Authorship Attestation**
 
 **Assistance and tools used:**
-With Assistance from Osei Akoto Okyere assisted with scaffolding project directory structures, writing
-automation scripts (including SHA-256 evidence hashing utilities and CSV column parsing), debugging Git
-authentication/configuration issues, and formatting markdown documentation. The development and
-runtime environment relied on Kali Linux (Terminal/Bash), Node.js (v24.x) with the native Node test runner
-(node --test), Git and GitHub for version control and remote synchronization, and core system utilities
-including sha256sum, jq, python3, find, chmod, and grep. All raw evidence files in data/ have been frozen
-(read-only), and all SHA-256 digests in docs/evidence-index.csv have been fully calculated and verified
-with no PENDING-HASH placeholders remaining.
+I Ebenezer Elikem Amankwah Ofori Dzam –UBI-2026-0038 declare ownership and with assistance of Osei-Akoto Okyere, scaffolding project directory structures, writing automation scripts (including SHA-256 evidence hashing utilities and CSV column parsing), debugging Git authentication/configuration issues, and formatting markdown documentation. The development and runtime environment relied on Kali Linux (Terminal/Bash), Node.js (v24.x) with the native Node test runner (node --test), Git and GitHub for version control and remote synchronization, and core system utilities including sha256sum, jq, python3, find, chmod, and grep. All raw evidence files in data/ have been frozen (read-only), and all SHA-256 digests in docs/evidence-index.csv have been fully calculated and verified with no PENDING-HASH placeholders remaining.
 
-Candidate Declaration:
-Per the assessment&#39;s authorship and integrity clauses, Ebenezer Elikem Amankwah Ofori Dzam remains
-fully responsible for every claim, test, fixture, and documentation file included in this submission; all
-generated scripts, hashes, and code logic have been locally executed, verified, and can be fully
-demonstrated and explained during defense.
+**Declaration:**
+I therefore declare the assessment's authorship and integrity clauses, I Ebenezer Elikem Amankwah Ofori Dzam – UBI-2026-0038 is fully responsible for every claim, test, fixture, and documentation file included in this submission; all generated scripts, hashes, and code logic have been locally executed, verified, and can be fully demonstrated and explained during defence.
+
